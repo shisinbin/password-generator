@@ -196,7 +196,7 @@ function getPasswordOptions() {
   var isValid = false;
   var errorMessage = "";
   while (isValid === false) {
-    var lengthOfPassword = prompt(`${errorMessage}How many characters do you want the password to be (enter a number between 10-64 inclusive)?`);
+    var lengthOfPassword = prompt(`${errorMessage}How many characters do you want the password to have (enter a number between 10-64 inclusive)?`);
 
     // check to see if they've clicked cancel
     if (lengthOfPassword === null) {
