@@ -26,11 +26,11 @@ Passwords can be generated as many times as needed without refreshing, and the p
 
 Screenshots of the generator are shown below.
 
-![screenshot of console output](ss1.png)
+![screenshot of console output](assets/img/ss1.png)
 
-![screenshot of console output](ss2.png)
+![screenshot of console output](assets/img/ss2.png)
 
-![screenshot of console output](ss3.png)
+![screenshot of console output](assets/img/ss3.png)
 
 ## Credits
 
