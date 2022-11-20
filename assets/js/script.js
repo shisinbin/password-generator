@@ -1,5 +1,5 @@
 // note to self: to help understand what's going on, uncomment the console.log() code
-// on lines 182, 304, and 309, and then inspect->console on browser 
+// on lines 181, 309, and 314, and then inspect->console on browser 
 
 // Array of special characters to be included in password
 var specialCharacters = [
@@ -105,23 +105,20 @@ function shuffleString(str) {
   }
 
   /*
-  while string array is not empty, randomly select one character from it,
-  add it to new password, and remove it from array
+  while string array is not empty, randomly select one character from array,
+  add this to new password before removing it from string array
   */
-  var empty = false;
-  var new_password = "";
-  while (empty === false) {
+  var newPassword = "";
+  while (strArr.length !==0) {
     var randomIndex = Math.floor(Math.random() * strArr.length);
-    new_password += strArr[randomIndex];
+    newPassword += strArr[randomIndex];
     strArr.splice(randomIndex, 1);
-    if (strArr.length === 0) {
-      empty = true;
-    }
   }
 
   // return shuffled password
-  return new_password;
+  return newPassword;
 }
+
 
 /*
 Function that randomly works out how many characters from each included character set
@@ -140,22 +137,24 @@ function getNumbersForEachCharacterSet(options) {
   var totalLabels = []
   var totalNumbers = [];
 
-  // go through each boolean one-by-one, and if true
-  // add a label and a 1 into appropriate arrays
+  /*
+  go through each of the character set options, and if true,
+  add both a label and corresponding 1 (as password should include at least 1) to arrays
+  */
   if (options.characterSets.upper) {
-    totalLabels.push("upper");
+    totalLabels.push("numberOfUpperCased");
     totalNumbers.push(1);
   }
   if (options.characterSets.lower) {
-    totalLabels.push("lower");
+    totalLabels.push("numberOfLowerCased");
     totalNumbers.push(1);
   }
   if (options.characterSets.numeric) {
-    totalLabels.push("numeric");
+    totalLabels.push("numberOfNumeric");
     totalNumbers.push(1);
   }
   if (options.characterSets.special) {
-    totalLabels.push("special");
+    totalLabels.push("numberOfSpecial");
     totalNumbers.push(1);
   }
 
@@ -163,9 +162,9 @@ function getNumbersForEachCharacterSet(options) {
   var remainingLengthToFill = maxLength - totalNumbers.length;
 
   /* 
-  loop the remaining number of times, each time generating a random
-  index number between 0 and the length of totalLabels minus one,
-  and then using this number to add one to totalNumbers by position
+  loop the remaining number of times required,
+  each time generating a random index number to use
+  for incrementing a number in totalNumbers by one
   */
   for (var i = 0; i < remainingLengthToFill; i++) {
     var randomIndex = Math.floor(Math.random() * totalLabels.length);
@@ -273,33 +272,39 @@ function generatePassword() {
   // get the number of characters for each character set to be put into password
   var result = getNumbersForEachCharacterSet(options);
 
-  // use result to build password by randomly selecting from character sets
+  /*
+  using the result above, check each possible property it could have and if it does,
+  randomly select a single character from the character set array the appropriate number of times,
+  each time concatenating it to the password string
+  */
   var password = ""
-  if (result.hasOwnProperty("upper")) {
-    for (let i = 0; i < result.upper; i++) {
+  if (result.hasOwnProperty("numberOfUpperCased")) {
+    for (let i = 0; i < result.numberOfUpperCased; i++) {
       password += getRandom(upperCasedCharacters);
     }
   }
-  if (result.hasOwnProperty("lower")) {
-    for (let i = 0; i < result.lower; i++) {
+  if (result.hasOwnProperty("numberOfLowerCased")) {
+    for (let i = 0; i < result.numberOfLowerCased; i++) {
       password += getRandom(lowerCasedCharacters);
     }
   }
-  if (result.hasOwnProperty("numeric")) {
-    for (let i = 0; i < result.numeric; i++) {
+  if (result.hasOwnProperty("numberOfNumeric")) {
+    for (let i = 0; i < result.numberOfNumeric; i++) {
       password += getRandom(numericCharacters);
     }
   }
-  if (result.hasOwnProperty("special")) {
-    for (let i = 0; i < result.special; i++) {
+  if (result.hasOwnProperty("numberOfSpecial")) {
+    for (let i = 0; i < result.numberOfSpecial; i++) {
       password += getRandom(specialCharacters);
     }
   }
 
-  // a one-line function I copied from a stack overflow post for shuffling a string
-  // https://stackoverflow.com/a/60963711
+  /*
+  a one-line function I copied from a stack overflow post for shuffling a string
+  https://stackoverflow.com/a/60963711
   // const shuffle = str => [...str].sort(() => Math.random() - .5).join('');
-  // I didn't use this and wrote my own function instead but I'm just leaving it in for me :)
+  I didn't use this and wrote my own function instead but I'm just leaving it in for me :)
+  */
 
   // console.log(password);
 
@@ -311,7 +316,6 @@ function generatePassword() {
   // return password
   return password;
 }
-
 
 
 // Get references to the #generate element
