@@ -1,5 +1,5 @@
 // note to self: to help understand what's going on, uncomment the console.log() code
-// on lines 181, 309, and 314, and then inspect->console on browser 
+// on lines 113, 241, and 246, and then inspect->console on browser 
 
 // Array of special characters to be included in password
 var specialCharacters = [
